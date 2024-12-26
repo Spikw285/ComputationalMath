@@ -1,6 +1,5 @@
 import numpy as np
 
-# Метод Крамера
 def cramer_method(A, b):
     det_A = np.linalg.det(A)
     if det_A == 0:
@@ -13,9 +12,9 @@ def cramer_method(A, b):
         solutions.append(np.linalg.det(A_temp) / det_A)
     return solutions
 
-# Метод Гаусса
+
 def gauss_elimination(A, b):
-    A_aug = np.hstack([A, b.reshape(-1, 1)]).astype(float)  # Приведение к float
+    A_aug = np.hstack([A, b.reshape(-1, 1)]).astype(float)
     n = len(b)
     for i in range(n):
         max_row = np.argmax(abs(A_aug[i:, i])) + i
@@ -28,7 +27,6 @@ def gauss_elimination(A, b):
         x[i] = (A_aug[i, -1] - np.dot(A_aug[i, i + 1:n], x[i + 1:])) / A_aug[i, i]
     return x
 
-# Метод Якоби
 def is_diagonally_dominant(A):
     n = A.shape[0]
     for i in range(n):
@@ -59,7 +57,6 @@ def jacobi_method(A, b, tol=1e-10, max_iterations=1000):
         x = x_new
     raise ValueError("Jacobi method did not converge.")
 
-# Метод Гаусса-Зейделя
 def gauss_seidel_method(A, b, tol=1e-10, max_iterations=1000):
     n = len(b)
     x = np.zeros(n)
@@ -74,7 +71,6 @@ def gauss_seidel_method(A, b, tol=1e-10, max_iterations=1000):
         x = x_new
     raise ValueError("Gauss-Seidel method did not converge.")
 
-# Основной код
 A = np.array([
     [3, -5, 47, 20],
     [11, 16, 17, 10],
@@ -83,7 +79,6 @@ A = np.array([
 ])
 b = np.array([18, 26, 34, 82])
 
-# Обработка методов
 try:
     cramer_solution = cramer_method(A, b)
     print(f"Cramer's Method Solution: {cramer_solution}")
